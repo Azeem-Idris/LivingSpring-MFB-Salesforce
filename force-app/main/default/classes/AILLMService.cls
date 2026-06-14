@@ -3,7 +3,7 @@ public class AILLMService {
     private static final String NAMED_CREDENTIAL = 'callout:GeminiAI';
     private static final String GEMINI_MODEL_PATH = '/v1beta/models/gemini-2.5-flash:generateContent';
     
-    public static String askClaude(String systemPrompt, String userMessage) {
+    public static String callGemini(String systemPrompt, String userMessage) {
         
         String apiKey = getApiKey();
         String endpoint = NAMED_CREDENTIAL + GEMINI_MODEL_PATH + '?key=' + apiKey;

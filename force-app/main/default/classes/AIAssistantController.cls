@@ -54,19 +54,19 @@ public with sharing class AIAssistantController {
                 contextualMessage = 'Current record context: ' + objectApiName + ' with Id ' + recordId + '. User question: ' + userMessage;
             }
             
-            // Call Claude
-            String claudeResponse = AILLMService.askClaude(SCHEMA_CONTEXT, contextualMessage);
+            // Call Gemini
+            String geminiResponse = AILLMService.callGemini(SCHEMA_CONTEXT, contextualMessage);
             
-            // Check if Claude needs clarification
-            if (claudeResponse.startsWith('CLARIFICATION_NEEDED:')) {
+            // Check if Gemini needs clarification
+            if (geminiResponse.startsWith('CLARIFICATION_NEEDED:')) {
                 result.put('type', 'clarification');
-                result.put('message', claudeResponse.replace('CLARIFICATION_NEEDED:', '').trim());
+                result.put('message', geminiResponse.replace('CLARIFICATION_NEEDED:', '').trim());
                 outcome = 'Clarification Requested';
                 logInteraction(userMessage, '', objectApiName, 0, outcome);
                 return result;
             }
             
-            generatedSOQL = claudeResponse.trim();
+            generatedSOQL = geminiResponse.trim();
             
             // Security validation
             validateQuery(generatedSOQL);
