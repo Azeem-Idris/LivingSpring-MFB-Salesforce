@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYC_Pending_Review</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ACCOUNT.ADDRESS1_STATE</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>ACCOUNT.TYPE</columns>
+    <columns>KYC_Status__c</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
+    <columns>PC_PHONE3</columns>
+    <columns>BVN__c</columns>
+    <columns>Employment_Type__c</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>KYC_Status__c</field>
+        <operation>equals</operation>
+        <value>Pending Review</value>
+    </filters>
+    <label>KYC Pending Review</label>
+</ListView>

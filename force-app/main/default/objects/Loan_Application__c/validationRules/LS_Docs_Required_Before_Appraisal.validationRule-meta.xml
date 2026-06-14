@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Docs_Required_Before_Appraisal</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  OR(
+    ISPICKVAL(Status__c, &quot;Pending Appraisal&quot;),
+    ISPICKVAL(Status__c, &quot;In Appraisal&quot;),
+    ISPICKVAL(Status__c, &quot;Recommended for Approval&quot;),
+    ISPICKVAL(Status__c, &quot;Approved&quot;)
+  ),
+  Supporting_Docs_Complete__c = FALSE
+)</errorConditionFormula>
+    <errorDisplayField>Supporting_Docs_Complete__c</errorDisplayField>
+    <errorMessage>Supporting documents must be complete before appraisal or approval.</errorMessage>
+</ValidationRule>

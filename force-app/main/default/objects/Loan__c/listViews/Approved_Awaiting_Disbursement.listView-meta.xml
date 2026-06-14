@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_Awaiting_Disbursement</fullName>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>Principal__c</columns>
+    <columns>Disbursement_Date__c</columns>
+    <columns>Status__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>Approved Awaiting Disbursement</label>
+</ListView>

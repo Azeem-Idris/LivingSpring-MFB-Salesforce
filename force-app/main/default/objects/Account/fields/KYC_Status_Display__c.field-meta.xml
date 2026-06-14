@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYC_Status_Display__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( TEXT(KYC_Status__c),
+  &quot;Active&quot;,             &quot;✅ Active&quot;,
+  &quot;Pending Review&quot;,     &quot;⏳ Pending Review&quot;,
+  &quot;Rejected&quot;,           &quot;❌ Rejected&quot;,
+  &quot;More Info Required&quot;, &quot;⚠ More Info Required&quot;,
+  &quot;Expired&quot;,            &quot;🔴 Expired&quot;,
+  &quot;— Unknown —&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>KYC Status Display</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

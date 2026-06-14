@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Affordability_Score_Updated__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(
+  Declared_Monthly_Income__c &lt;= 0,
+  0,
+  Expected_Monthly_Repayment_Updated__c / Declared_Monthly_Income__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Affordability Score Updated</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Repayment_Source__c</fullName>
+    <label>Repayment Source</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Daily Sales</fullName>
+                <default>false</default>
+                <label>Daily Sales</label>
+            </value>
+            <value>
+                <fullName>Salary</fullName>
+                <default>false</default>
+                <label>Salary</label>
+            </value>
+            <value>
+                <fullName>Business Cashflow</fullName>
+                <default>false</default>
+                <label>Business Cashflow</label>
+            </value>
+            <value>
+                <fullName>Cooperative Contributions</fullName>
+                <default>false</default>
+                <label>Cooperative Contributions</label>
+            </value>
+            <value>
+                <fullName>Market Proceeds</fullName>
+                <default>false</default>
+                <label>Market Proceeds</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

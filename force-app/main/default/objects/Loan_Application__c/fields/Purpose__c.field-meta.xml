@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Purpose__c</fullName>
+    <label>Purpose</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Working Capital</fullName>
+                <default>false</default>
+                <label>Working Capital</label>
+            </value>
+            <value>
+                <fullName>Inventory Purchase</fullName>
+                <default>false</default>
+                <label>Inventory Purchase</label>
+            </value>
+            <value>
+                <fullName>Market Trading</fullName>
+                <default>false</default>
+                <label>Market Trading</label>
+            </value>
+            <value>
+                <fullName>Equipment Purchase</fullName>
+                <default>false</default>
+                <label>Equipment Purchase</label>
+            </value>
+            <value>
+                <fullName>Shop Rent</fullName>
+                <default>false</default>
+                <label>Shop Rent</label>
+            </value>
+            <value>
+                <fullName>School Fees</fullName>
+                <default>false</default>
+                <label>School Fees</label>
+            </value>
+            <value>
+                <fullName>Medical Expenses</fullName>
+                <default>false</default>
+                <label>Medical Expenses</label>
+            </value>
+            <value>
+                <fullName>Agriculture Input</fullName>
+                <default>false</default>
+                <label>Agriculture Input</label>
+            </value>
+            <value>
+                <fullName>Cooperative Business Support</fullName>
+                <default>false</default>
+                <label>Cooperative Business Support</label>
+            </value>
+            <value>
+                <fullName>Emergency Household Need</fullName>
+                <default>false</default>
+                <label>Emergency Household Need</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

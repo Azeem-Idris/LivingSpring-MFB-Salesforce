@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Requested_Tenor_Within_Product_Range</fullName>
+    <active>true</active>
+    <description>Ensures the requested loan tenor is not below the minimum or above the maximum tenor allowed for the selected loan product.</description>
+    <errorConditionFormula>OR(
+   Requested_Tenor__c &lt; Loan_Product__r.Min_Tenor__c,
+   Requested_Tenor__c &gt; Loan_Product__r.Max_Tenor__c
+)</errorConditionFormula>
+    <errorDisplayField>Requested_Tenor__c</errorDisplayField>
+    <errorMessage>The requested tenor must be between the minimum and maximum tenor allowed for the selected loan product.</errorMessage>
+</ValidationRule>

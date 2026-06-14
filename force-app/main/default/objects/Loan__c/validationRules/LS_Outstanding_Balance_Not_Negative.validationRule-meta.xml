@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Outstanding_Balance_Not_Negative</fullName>
+    <active>true</active>
+    <errorConditionFormula>Outstanding_Balance__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>Outstanding_Balance__c</errorDisplayField>
+    <errorMessage>Outstanding_Balance__c &lt; 0</errorMessage>
+</ValidationRule>

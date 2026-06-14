@@ -1,0 +1,82 @@
+<template>
+    <div class="chat-container">
+        <div class="chat-header">
+            <lightning-icon icon-name="utility:einstein" size="small"></lightning-icon>
+            <span class="header-title">LivingSpring AI Assistant</span>
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                variant="bare"
+                onclick={resetChat}
+                alternative-text="Clear chat"
+                title="Clear chat"
+                class="close-btn">
+            </lightning-button-icon>
+        </div>
+
+        <div class="chat-body" lwc:ref="chatBody">
+            <template for:each={messages} for:item="msg">
+                <div key={msg.id} class={msg.cssClass}>
+                    <div class="message-content">
+                        <p>{msg.text}</p>
+                        <template if:true={msg.hasRecords}>
+                            <div class="results-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <template for:each={msg.columns} for:item="col">
+                                                <th key={col}>{col}</th>
+                                            </template>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={msg.rows} for:item="row">
+                                            <tr key={row.Id}>
+                                                <template for:each={row.cells} for:item="cell">
+                                                    <td key={cell.key}>
+                                                        <template if:true={cell.isLink}>
+                                                            <a href={cell.url} target="_blank">{cell.value}</a>
+                                                        </template>
+                                                        <template if:false={cell.isLink}>
+                                                            {cell.value}
+                                                        </template>
+                                                    </td>
+                                                </template>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </template>
+                    </div>
+                    <span class="message-time">{msg.time}</span>
+                </div>
+            </template>
+
+            <template if:true={isLoading}>
+                <div class="message assistant-message">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <div class="chat-footer">
+            <lightning-textarea
+                value={currentMessage}
+                onchange={handleMessageChange}
+                onkeydown={handleKeyDown}
+                placeholder="Ask anything... e.g. show loans in arrears above ₦200,000"
+                max-length="500"
+                class="message-input">
+            </lightning-textarea>
+            <lightning-button
+                label="Send"
+                variant="brand"
+                onclick={sendMessage}
+                disabled={isLoading}
+                class="send-btn">
+            </lightning-button>
+        </div>
+    </div>
+</template>

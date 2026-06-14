@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Customer_Must_Be_KYC_Active</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  OR(
+    ISPICKVAL(Status__c, &quot;Pending Appraisal&quot;),
+    ISPICKVAL(Status__c, &quot;In Appraisal&quot;),
+    ISPICKVAL(Status__c, &quot;Recommended for Approval&quot;),
+    ISPICKVAL(Status__c, &quot;Approved&quot;)
+  ),
+  NOT(ISPICKVAL(Customer__r.KYC_Status__c, &quot;Active&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Status__c</errorDisplayField>
+    <errorMessage>Customer must be KYC Active before the loan application can proceed.</errorMessage>
+</ValidationRule>

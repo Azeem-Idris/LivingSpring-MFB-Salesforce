@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Outstanding_Not_Greater_Than_Principa</fullName>
+    <active>true</active>
+    <errorConditionFormula>Outstanding_Balance__c &gt; Principal__c</errorConditionFormula>
+    <errorDisplayField>Outstanding_Balance__c</errorDisplayField>
+    <errorMessage>Outstanding balance cannot exceed principal for this Phase 1 demo loan book.</errorMessage>
+</ValidationRule>

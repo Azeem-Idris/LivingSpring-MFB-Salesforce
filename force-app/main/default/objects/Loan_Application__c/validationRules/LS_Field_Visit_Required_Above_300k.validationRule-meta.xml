@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Field_Visit_Required_Above_300k</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  Requested_Amount__c &gt; 300000,
+  ISPICKVAL(Status__c, &quot;Approved&quot;),
+  Field_Visit_Completed__c = FALSE
+)</errorConditionFormula>
+    <errorDisplayField>Field_Visit_Completed__c</errorDisplayField>
+    <errorMessage>Field visit must be completed before approving applications above ₦300,000.</errorMessage>
+</ValidationRule>

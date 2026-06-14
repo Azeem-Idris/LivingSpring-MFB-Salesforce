@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Risk_Badge__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Has_Arrears__c,
+    &quot;⚠ &quot; &amp; PAR_Flag__c &amp; &quot; — Escalate to Credit Officer&quot;,
+    IF( TEXT(KYC_Status__c) == &quot;Active&quot;,
+        &quot;✅ Good Standing&quot;,
+        &quot;⏳ KYC &quot; &amp; TEXT(KYC_Status__c)
+    )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Customer Risk Badge</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

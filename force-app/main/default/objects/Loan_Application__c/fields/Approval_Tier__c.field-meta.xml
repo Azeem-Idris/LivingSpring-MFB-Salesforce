@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approval_Tier__c</fullName>
+    <inlineHelpText>Choose who must approve this loan application.</inlineHelpText>
+    <label>Approval Tier</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Branch Manager</fullName>
+                <default>false</default>
+                <label>Branch Manager</label>
+            </value>
+            <value>
+                <fullName>Head of Credit</fullName>
+                <default>false</default>
+                <label>Head of Credit</label>
+            </value>
+            <value>
+                <fullName>Head of Credit + CEO</fullName>
+                <default>false</default>
+                <label>Head of Credit + CEO</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

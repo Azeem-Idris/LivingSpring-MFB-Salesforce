@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Recommended_By_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  OR(
+    ISPICKVAL(Status__c, &quot;Recommended for Approval&quot;),
+    ISPICKVAL(Status__c, &quot;Approved&quot;)
+  ),
+  ISBLANK(Recommended_By__c)
+)</errorConditionFormula>
+    <errorDisplayField>Recommended_By__c</errorDisplayField>
+    <errorMessage>Recommended By is required before recommendation or approval.</errorMessage>
+</ValidationRule>

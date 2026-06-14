@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Accounts_Active_KYC</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>KYC_Status__c</columns>
+    <columns>Employment_Type__c</columns>
+    <columns>Monthly_Income__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>KYC_Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>Recently Verified Customers</label>
+</ListView>

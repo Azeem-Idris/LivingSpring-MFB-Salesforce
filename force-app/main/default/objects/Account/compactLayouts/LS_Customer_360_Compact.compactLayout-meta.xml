@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Customer_360_Compact</fullName>
+    <fields>Name</fields>
+    <fields>Phone</fields>
+    <fields>KYC_Status_Display__c</fields>
+    <fields>Active_Loan_Count__c</fields>
+    <fields>Total_Outstanding_Balance__c</fields>
+    <fields>Customer_Risk_Badge__c</fields>
+    <label>LS Customer 360 Compact</label>
+</CompactLayout>

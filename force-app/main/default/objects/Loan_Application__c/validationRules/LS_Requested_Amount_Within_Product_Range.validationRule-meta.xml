@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LS_Requested_Amount_Within_Product_Range</fullName>
+    <active>true</active>
+    <description>Ensures the requested loan amount is not below the minimum or above the maximum amount allowed for the selected loan product.</description>
+    <errorConditionFormula>OR(
+   Requested_Amount__c &lt; Loan_Product__r.Min_Amount__c,
+   Requested_Amount__c &gt; Loan_Product__r.Max_Amount__c
+)</errorConditionFormula>
+    <errorDisplayField>Requested_Amount__c</errorDisplayField>
+    <errorMessage>The requested amount must be between the minimum and maximum amount allowed for the selected loan product.</errorMessage>
+</ValidationRule>

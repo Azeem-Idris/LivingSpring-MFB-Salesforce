@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Active_Customers</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>PC_EMAIL</columns>
+    <columns>PC_PHONE3</columns>
+    <columns>KYC_Status__c</columns>
+    <columns>Employment_Type__c</columns>
+    <columns>Monthly_Income__c</columns>
+    <filterScope>Mine</filterScope>
+    <label>All Active Customers</label>
+</ListView>
