@@ -1,10 +1,10 @@
 # LivingSpring MFB — Salesforce Implementation
-**Blackforce Cohort 11 Internship Project | Group 3**
+**Blackforce Cohort 11 Internship Project**
 
 ## Project Overview
 A full Salesforce CRM implementation for LivingSpring Microfinance 
 Bank, a Tier 2 Unit Microfinance Bank operating in Lagos, Nigeria. 
-Built as part of a 6-week consulting engagement simulation.
+Built as part of a 6-week consulting engagement project.
 
 ## What Was Built
 - Custom data model with 12 custom objects (Loans, Customers, 
