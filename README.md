@@ -31,24 +31,26 @@ Built as part of a 6-week consulting engagement project.
 
 ### AI Records Assistant (FR-12) — Primary Owner
 - Architected and built the AI Records Assistant from first principles 
-  using LWC, Apex, and Google Gemini API — deliberately avoiding 
-  Salesforce Agentforce per BRD requirements to demonstrate 
-  foundational AI integration skills
-- Designed and configured External Credential + Named Credential 
-  authentication pattern for secure API key storage (key never 
-  hardcoded in source code)
-- Built AILLMService.cls (LLM callout service), AIAssistantController.cls 
-  (security validation + query execution + audit logging), and 
-  AILogWriter.cls (without sharing audit helper)
+  using LWC, Apex, and Google Gemini API (gemini-2.5-flash) — 
+  deliberately avoiding Salesforce Agentforce per BRD requirements 
+  to demonstrate foundational AI integration skills
+- Designed and configured External Credential (Gemini_AI_Credential) 
+  + Named Credential (GeminiAI) authentication pattern for secure 
+  API key storage — key stored in Custom Metadata (API_Key__mdt), 
+  never hardcoded in source code
+- Built AILLMService.cls (Gemini API callout service), 
+  AIAssistantController.cls (security validation + query execution 
+  + audit logging), and AILogWriter.cls (without sharing audit helper)
 - Implemented multi-layer security: validateQuery() blocks all write 
   operations, `with sharing` enforces record-level sharing rules, 
   FLS respected via running-user query execution
-- Engineered SCHEMA_CONTEXT prompt with lookup relationship guidance 
-  and few-shot examples to ensure accurate SOQL generation for 
-  LivingSpring's custom object schema
-- Deployed LWC chat component to Utility Bar across all 5 Lightning Apps
+- Engineered SCHEMA_CONTEXT prompt with Gemini-optimized instructions, 
+  lookup relationship field guidance, and few-shot examples to ensure 
+  accurate SOQL generation for LivingSpring's custom object schema
+- Deployed LWC chat component (aiRecordsAssistant) to Utility Bar 
+  across all 5 Lightning Apps with reset/clear chat functionality
 - Wrote comprehensive Apex test classes (13 test methods) using 
-  HttpCalloutMock pattern for callout testing
+  HttpCalloutMock pattern for callout testing without live API calls
 
 ### Salesforce Administration & Configuration
 - Configured 6 Permission Sets (LS_CSO_PSet, LS_CreditOfficer_PSet, 
@@ -65,7 +67,7 @@ Built as part of a 6-week consulting engagement project.
   at loan approval — immutably copying rate, fee, insurance, principal, 
   tenor, and product name from Loan Product onto Loan record
 - Created AI_Action_Log__c custom object and LS_AI_Read_PSet 
-  permission set as Phase 1 AI foundation
+  permission set as Phase 1 AI foundation (LMFB-534)
 - Built Salesforce Path components for Loan Application, Loan, 
   Customer (KYC Status), and Repayment Schedule objects with Key 
   Fields and Guidance for Success at every stage
@@ -78,7 +80,6 @@ Built as part of a 6-week consulting engagement project.
 - Authored comprehensive AI Records Assistant Build Guide documenting 
   complete build process, all issues encountered with resolutions, 
   security design decisions, and demo guide
-
 ## Tech Stack
 - Salesforce Sales Cloud (Enterprise Edition)
 - Apex (AIAssistantController, AILLMService, AILogWriter)
