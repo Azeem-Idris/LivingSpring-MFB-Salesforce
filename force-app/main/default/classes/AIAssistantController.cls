@@ -37,27 +37,35 @@ public with sharing class AIAssistantController {
     '\nUser: "find every customer onboarded this month with KYC still pending review"' +
     '\nSOQL: SELECT Id, Name, KYC_Status__c, LivingSpring_Branch__r.Name, CreatedDate FROM Account WHERE KYC_Status__c = \'Pending Review\' AND CreatedDate = THIS_MONTH LIMIT 200' +
     '\nUser: "show all loan applications with the branch named yaba branch"' +
-    '\nSOQL: SELECT Id, Name, Customer__r.Name, Requested_Amount__c, Status__c, LivingSpring_Branch__r.Name FROM Loan_Application__c WHERE LivingSpring_Branch__r.Name LIKE \'%Yaba%\' LIMIT 200';
+    '\nSOQL: SELECT Id, Name, Customer__r.Name, Requested_Amount__c, Status__c, LivingSpring_Branch__r.Name FROM Loan_Application__c WHERE LivingSpring_Branch__r.Name LIKE \'%Yaba%\' LIMIT 200' +
+    '\n- PAR 1 means Days_Past_Due__c >= 1 on Loan__c' +
+    '\n- PAR 60 means Days_Past_Due__c >= 60 on Loan__c' +
+    '\n- PAR 90 means Days_Past_Due__c >= 90 on Loan__c' +
+    '\n- "Disbursed loans" means Loan__c where Status__c = \'Active\'' +
+    '\n- "Active loans" means Loan__c where Status__c = \'Active\'' +
+    '\n- "Written off" means Loan__c where Status__c = \'Written Off\'' +
+    '\n- "Pending disbursement" means Loan__c where Status__c = \'Pending Disbursement\'' +
+    '\n- "KYC approved" or "active customers" means Account where KYC_Status__c = \'Active\'' +
+    '\n- "Field visit" queries use Field_Visit__c object' +
+    '\n- "Collections" queries use Collections_Activity__c object' +
+    '\n- "Cooperative" or "group loans" queries use Cooperative_Group__c object';
 
     @AuraEnabled
     public static Map<String, Object> sendMessage(String userMessage, String recordId, String objectApiName) {
         
         Map<String, Object> result = new Map<String, Object>();
         String generatedSOQL = '';
-        String outcome = 'Error';
+        String outcome = 'Failed';
         Integer resultCount = 0;
         
         try {
-            // Build context-aware prompt
             String contextualMessage = userMessage;
             if (String.isNotBlank(recordId) && String.isNotBlank(objectApiName)) {
                 contextualMessage = 'Current record context: ' + objectApiName + ' with Id ' + recordId + '. User question: ' + userMessage;
             }
             
-            // Call Gemini
             String geminiResponse = AILLMService.callGemini(SCHEMA_CONTEXT, contextualMessage);
             
-            // Check if Gemini needs clarification
             if (geminiResponse.startsWith('CLARIFICATION_NEEDED:')) {
                 result.put('type', 'clarification');
                 result.put('message', geminiResponse.replace('CLARIFICATION_NEEDED:', '').trim());
@@ -68,15 +76,12 @@ public with sharing class AIAssistantController {
             
             generatedSOQL = geminiResponse.trim();
             
-            // Security validation
             validateQuery(generatedSOQL);
             
-            // Execute query under running user permissions (with sharing enforced by class declaration)
             List<SObject> records = Database.query(generatedSOQL);
             resultCount = records.size();
             outcome = 'Success';
             
-            // Format results
             List<Map<String, Object>> formattedRecords = formatRecords(records);
             
             result.put('type', 'results');
@@ -88,22 +93,22 @@ public with sharing class AIAssistantController {
         } catch (AILLMService.AILLMException e) {
             result.put('type', 'error');
             result.put('message', 'The AI service is currently unavailable. Please try again in a moment.');
-            outcome = 'Error';
+            outcome = 'LLM Unavailable';
             
         } catch (QueryException e) {
             result.put('type', 'error');
             result.put('message', 'This query could not be answered reliably. Please refine your question or contact your System Administrator.');
-            outcome = 'Error';
+            outcome = 'Failed';
             
         } catch (SecurityException e) {
             result.put('type', 'error');
             result.put('message', 'This query was blocked for security reasons. Only read operations are permitted.');
-            outcome = 'Error';
+            outcome = 'Unauthorized';
             
         } catch (Exception e) {
             result.put('type', 'error');
             result.put('message', 'An unexpected error occurred. Please try again.');
-            outcome = 'Error';
+            outcome = 'Failed';
         }
         
         logInteraction(userMessage, generatedSOQL, objectApiName, resultCount, outcome);
@@ -113,7 +118,6 @@ public with sharing class AIAssistantController {
     private static void validateQuery(String soql) {
         String upperSOQL = soql.toUpperCase();
         
-        // Block any write operations absolutely
         List<String> forbiddenKeywords = new List<String>{
             'INSERT', 'UPDATE', 'DELETE', 'MERGE', 'UPSERT', 'UNDELETE'
         };
@@ -124,7 +128,6 @@ public with sharing class AIAssistantController {
             }
         }
         
-        // Must start with SELECT
         if (!upperSOQL.trim().startsWith('SELECT')) {
             throw new SecurityException('Only SELECT queries are permitted.');
         }
@@ -137,7 +140,6 @@ public with sharing class AIAssistantController {
             Map<String, Object> row = new Map<String, Object>();
             Map<String, Object> allFields = record.getPopulatedFieldsAsMap();
             
-            // Always include Id and Name for linking
             row.put('Id', record.Id);
             row.put('objectType', record.getSObjectType().getDescribe().getName());
             
@@ -152,21 +154,21 @@ public with sharing class AIAssistantController {
     }
     
     private static void logInteraction(String originalQuery, String generatedSOQL, String targetObject, Integer resultCount, String outcome) {
-    try {
-        AI_Action_Log__c log = new AI_Action_Log__c();
-        log.User__c = UserInfo.getUserId();
-        log.Timestamp__c = DateTime.now();
-        log.Original_Query__c = originalQuery;
-        log.Generated_DML__c = generatedSOQL;
-        log.Target_Records__c = targetObject;
-        log.Result_Count__c = resultCount;
-        log.Outcome__c = outcome;
-        
-        AILogWriter.writeLog(log);
-    } catch (Exception e) {
-        System.debug('Logging failed: ' + e.getMessage());
+        try {
+            AI_Action_Log__c log = new AI_Action_Log__c();
+            log.User__c = UserInfo.getUserId();
+            log.Timestamp__c = DateTime.now();
+            log.Original_Query__c = originalQuery;
+            log.Generated_DML__c = generatedSOQL;
+            log.Target_Records__c = targetObject;
+            log.Result_Count__c = resultCount;
+            log.Outcome__c = outcome;
+            
+            AILogWriter.writeLog(log);
+        } catch (Exception e) {
+            System.debug('Logging failed: ' + e.getMessage());
+        }
     }
-}
     
     public class SecurityException extends Exception {}
 }
